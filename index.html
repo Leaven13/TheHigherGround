@@ -19,26 +19,19 @@
       position: relative;
     }
 
-    /* Moving background */
     .bg-layer {
       position: absolute;
-      top: -10%;
-      left: -10%;
+      top: 0;
+      left: 0;
       width: 120%;
       height: 120%;
       background: url('https://cdn.discordapp.com/attachments/1389656567846010932/1390443923893387334/create_a_glitch-styl.png?ex=6868f010&is=68679e90&hm=fc48c55de5ec0444d2fd183fc5f17042ba20dec5482553a1ffccc791fa615206&') center center no-repeat;
       background-size: cover;
       z-index: 0;
-      filter: blur(40px) brightness(0.45);
+      filter: blur(30px) brightness(0.5);
       transform: scale(1.2);
-      transition: transform 0.1s ease-out, filter 0.2s ease;
+      transition: transform 0.05s ease-out;
       pointer-events: none;
-      animation: pulse 10s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1.2); filter: blur(40px) brightness(0.45); }
-      50% { transform: scale(1.25); filter: blur(50px) brightness(0.5); }
     }
 
     .container {
@@ -55,8 +48,6 @@
       transition: transform 0.5s ease, box-shadow 0.5s ease, opacity 0.5s ease;
       position: relative;
       z-index: 2;
-      backface-visibility: hidden;
-      transform-style: preserve-3d;
     }
 
     .container:hover {
@@ -116,8 +107,10 @@
   </style>
 </head>
 <body>
+  <!-- Parallax background -->
   <div class="bg-layer" id="bgLayer"></div>
 
+  <!-- Main content -->
   <div class="container" id="box">
     <h1>The Higher Ground</h1>
     <p>
@@ -141,18 +134,12 @@
       }, 500);
     }
 
-    // Dynamic background movement + 3D tilt
-    const bg = document.getElementById('bgLayer');
-    const box = document.getElementById('box');
+    // Parallax background effect
+    let bgLayerElement = document.getElementById('bgLayer');
     document.addEventListener('mousemove', (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 40;
-      const y = (e.clientY / window.innerHeight - 0.5) * 40;
-
-      bg.style.transform = `translate(${x}px, ${y}px) scale(1.2)`;
-
-      const tiltX = (e.clientY / window.innerHeight - 0.5) * -10;
-      const tiltY = (e.clientX / window.innerWidth - 0.5) * 10;
-      box.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+      const x = (e.clientX / window.innerWidth - 0.5) * 30;
+      const y = (e.clientY / window.innerHeight - 0.5) * 30;
+      bgLayerElement.style.transform = `translate(${x}px, ${y}px) scale(1.2)`;
     });
   </script>
 </body>
