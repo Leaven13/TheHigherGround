@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Higher Ground</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      width: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #121212;
+      position: relative;
+    }
+
+    /* Moving background */
+    .bg-layer {
+      position: absolute;
+      top: -10%;
+      left: -10%;
+      width: 120%;
+      height: 120%;
+      background: url('https://cdn.discordapp.com/attachments/1389656567846010932/1390443923893387334/create_a_glitch-styl.png?ex=6868f010&is=68679e90&hm=fc48c55de5ec0444d2fd183fc5f17042ba20dec5482553a1ffccc791fa615206&') center center no-repeat;
+      background-size: cover;
+      z-index: 0;
+      filter: blur(40px) brightness(0.45);
+      transform: scale(1.2);
+      transition: transform 0.1s ease-out, filter 0.2s ease;
+      pointer-events: none;
+      animation: pulse 10s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1.2); filter: blur(40px) brightness(0.45); }
+      50% { transform: scale(1.25); filter: blur(50px) brightness(0.5); }
+    }
+
+    .container {
+      background: #1a1a1a;
+      padding: 3rem 2rem;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 700px;
+      box-shadow:
+        0 0 15px rgba(255, 68, 68, 0.6),
+        0 0 30px rgba(255, 68, 68, 0.4),
+        0 0 60px rgba(255, 68, 68, 0.2);
+      text-align: center;
+      transition: transform 0.5s ease, box-shadow 0.5s ease, opacity 0.5s ease;
+      position: relative;
+      z-index: 2;
+      backface-visibility: hidden;
+      transform-style: preserve-3d;
+    }
+
+    .container:hover {
+      transform: scale(1.02);
+      box-shadow:
+        0 0 100px rgba(255, 68, 68, 0.7),
+        0 0 40px rgba(255, 68, 68, 0.5),
+        0 0 70px rgba(255, 68, 68, 0.3);
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      color: #ff4444;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+
+    p {
+      color: #cccccc;
+      font-size: 1.1rem;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+
+    .btn {
+      padding: 1rem 2.5rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.3rem;
+      background-color: #ff4444;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 10px rgba(255, 68, 68, 0.4);
+      margin: 0.5rem;
+      display: inline-block;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      transform: rotate(5deg) scale(1.07);
+      background-color: #ff5555;
+      box-shadow: 0 0 20px rgba(255, 68, 68, 0.6);
+    }
+
+    .fade-out {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-layer" id="bgLayer"></div>
+
+  <div class="container" id="box">
+    <h1>The Higher Ground</h1>
+    <p>
+      Welcome to <strong>The Higher Ground</strong>,<br>
+      an unofficial rebrand of a small Furry/Anti-Furry Discord debate server.<br>
+      This is a place where people can just debate. <br>
+      JOIN US !
+    </p>
+    <a class="btn" href="https://discord.gg/J8dMXXnSMw" target="_blank">Join the Server</a>
+    <button class="btn" onclick="closePage()">Exit</button>
+    <div class="footer">© 2025 The Higher Ground</div>
+  </div>
+
+  <script>
+    function closePage() {
+      const box = document.getElementById('box');
+      box.classList.add('fade-out');
+      setTimeout(() => {
+        window.open('', '_self');
+        window.close();
+      }, 500);
+    }
+
+    // Dynamic background movement + 3D tilt
+    const bg = document.getElementById('bgLayer');
+    const box = document.getElementById('box');
+    document.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 40;
+      const y = (e.clientY / window.innerHeight - 0.5) * 40;
+
+      bg.style.transform = `translate(${x}px, ${y}px) scale(1.2)`;
+
+      const tiltX = (e.clientY / window.innerHeight - 0.5) * -10;
+      const tiltY = (e.clientX / window.innerWidth - 0.5) * 10;
+      box.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+    });
+  </script>
+</body>
+</html>
